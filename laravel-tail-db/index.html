@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Laravel Tail DB - Monitor SQL query executed from your application.</title>
+	<title>Laravel Tail DB - Monitor Realtime SQL query executed from your application.</title>
 	<!-- Meta -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,7 +70,7 @@
 				<section class="docs-section">
 					<h1 class="section-heading">Introduction</h1>
 					<p>
-						This package allow you to monitor sql query executed in your application from the terminal.
+						This package allow you to monitor realtime sql query executed in your application from the terminal.
 						When you run the command, it will listen to any SQL query executed and output the query data.
 					</p>
 
@@ -80,13 +80,14 @@
 
 					<p>Below are the information you can get from the query data.</p>
 					<ul>
+						<li>URL that trigger the SQL query.</li>
 						<li>File name including line number that trigger the SQL query in your application.</li>
 						<li>Raw SQL query executed including time taken for the query to complete.</li>
 						<li>Explain result.</li>
 					</ul>
 					<br>
-					<p><b>Example output when running PostgreSQL:</b></p>
-					<img style="width: 80%" src="assets/images/postgresql.png">
+					<p><b>Example output when running MySQL:</b></p>
+					<img style="width: 80%" src="assets/images/demo.gif">
 				</section>
 			</article>
 
@@ -112,28 +113,6 @@
 								Note
 							</h4>
 							<p>For SQL Server, you can't see the explain result since SQL Server don't have the explain command.</p>
-						</div><!--//content-->
-					</div>
-
-					<br>
-					<h3>List Of OS Supported</h3>
-
-					<ul>
-						<li>Windows</li>
-						<li>Mac OS</li>
-						<li>Windows</li>
-					</ul>
-
-					<div class="callout-block callout-block-info">
-						<div class="content">
-							<h4 class="callout-title">
-								<span class="callout-icon-holder mr-1">
-									<svg class="svg-inline--fa fa-info-circle fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"></path></svg><!-- <i class="fas fa-info-circle"></i> Font Awesome fontawesome.com -->
-								</span><!--//icon-holder-->
-								Note
-							</h4>
-							<p>Laravel Tail DB utilize <code>tail</code> command for Linux and Mac OS to be able to monitor the sql query.
-							For windows, since tail command not available, it use the <code>Get-Content</code> command via PowerShell.</p>
 						</div><!--//content-->
 					</div>
 				</section>
@@ -181,86 +160,110 @@ php artisan vendor:publish --provider="Muhdfaiz\LaravelTailDb\TailDatabaseServic
 
 					<pre><code class="language-php hljs php" data-lang="php" style="font-size: 1rem">
 return [
-	/*
-	|--------------------------------------------------------------------------
-	| Laravel Tail Database Switch
-	|--------------------------------------------------------------------------
-	|
-	| This option used to enable or disable the Laravel Tail DB watcher.
-	| If enabled, every sql query executed from the application will
-	| be captured and store in the directory you based on the config.
-	|
-	*/
-	'enabled' => env('TAIL_DB_ENABLED', true),
+    /*
+    |--------------------------------------------------------------------------
+    | Status
+    |--------------------------------------------------------------------------
+    |
+    | This option used to enable or disable the Laravel Tail DB watcher.
+    | If enabled, every sql query executed from the application will
+    | be captured and store the query in the log file if you enabled the
+    | query option.
+    |
+    */
+    'enabled' => env('TAIL_DB_ENABLED', true),
 
-	/*
-	|--------------------------------------------------------------------------
-	| Duration of time considered slow query.
-	|--------------------------------------------------------------------------
-	|
-	| This option used to tell Laravel Tail DB if the query slow or not.
-	| For example, if you specify 2000ms and the last query executed take
-	| more than 2000ms, Laravel Tail DB will highlight the time with red color.
-	| If the query below than 2000ms Laravel Tail DB will highlight with green color.
-	|
-	*/
-	'slow_duration' => env('TAIL_DB_SLOW_DURATION', 3000),
+    /*
+    |--------------------------------------------------------------------------
+    | Host
+    |--------------------------------------------------------------------------
+    |
+    | Laravel Tail DB use ReactPHP to monitor the SQL query. When you run
+    | 'tail:db' command, it will start the ReactPHP Server. ReactPHP Server
+    | will use this host when starting the server.
+    |
+    */
+    'host' => env('TAIL_DB_HOST', '0.0.0.0'),
 
-	/*
-	|--------------------------------------------------------------------------
-	| Ignore queries
-	|--------------------------------------------------------------------------
-	|
-	| You can specify the keyword to skip the tailing.
-	| Laravel Tail DB will check if the query contain those keyword or not.
-	| If exist, Laravel Tail DB will skip recording to log file.
-	| The key keyword must be separated by comma.
-	| Example: alter table}drop table. (Separated by |)
-	|
-	*/
-	'ignore_query_keyword' => env('TAIL_DB_IGNORE', 'drop|alter'),
+    /*
+    |--------------------------------------------------------------------------
+    | Port
+    |--------------------------------------------------------------------------
+    |
+    | Laravel Tail DB use ReactPHP to monitor the SQL query. When you run
+    | 'tail:db' command, it will start the ReactPHP Server. ReactPHP Server
+    | will use this port when starting the server.
+    */
+    'port' => env('TAIL_DB_PORT', '9001'),
 
-	/*
-	|--------------------------------------------------------------------------
-	| Filename to store mysql queries log
-	|--------------------------------------------------------------------------
-	|
-	| Default filename is database.log
-	|
-	*/
-	'filename' => env ('TAIL_DB_FILENAME', 'database.log'),
+    /*
+    |--------------------------------------------------------------------------
+    | Duration of time to considered as slow query.
+    |--------------------------------------------------------------------------
+    |
+    | This option used to tell Laravel Tail DB if the query slow or not.
+    | For example, if you specify 2000ms and the last query executed take
+    | more than 2000ms, Laravel Tail DB will highlight the time with red color.
+    | If the query below than 2000ms Laravel Tail DB will highlight with green color.
+    | The value must be in milliseconds.
+    */
+    'slow_duration' => env('TAIL_DB_SLOW_DURATION', 3000),
 
-	/*
-	|--------------------------------------------------------------------------
-	| Path to store sql queries log.
-	|--------------------------------------------------------------------------
-	|
-	| Default path is inside storage/logs.
-	|
-	*/
-	'path' => env ('TAIL_DB_PATH', storage_path('logs')),
+    /*
+    |--------------------------------------------------------------------------
+    | Ignore queries
+    |--------------------------------------------------------------------------
+    |
+    | You can specify the keyword to skip the tailing.
+    | Laravel Tail DB will check if the query contain those keyword or not.
+    | If exist, Laravel Tail DB will skip recording to log file.
+    | The key keyword must be separated by comma.
+    | Example: alter table}drop table. (Separated by |)
+    |
+    */
+    'ignore_query_keyword' => env('TAIL_DB_IGNORE_QUERY_KEYWORD', ''),
 
-	/*
-	|--------------------------------------------------------------------------
-	| Show explain sql during the tail.
-	|--------------------------------------------------------------------------
-	|
-	| By default every sql query executed, laravel tail db will run explain
-	| command. Useful if you want to troubleshooting performance issue.
-	| If turn off, Laravel Tail DB only show the query executed, the time and
-	| the location where the query executed.
-	*/
-	'show_explain' => env ('TAIL_DB_SHOW_EXPLAIN', true),
+    /*
+    |--------------------------------------------------------------------------
+    | Log Query
+    |--------------------------------------------------------------------------
+    |
+    | Option to specify if you want to store the SQL query in the log file.
+    |
+    */
+    'log_query' => env('TAIL_DB_LOG_QUERY', false),
 
-	/*
-	|--------------------------------------------------------------------------
-	| Clear log
-	|--------------------------------------------------------------------------
-	|
-	| When you end the tail:database command or every time Laravel Tail DB
-	| received new data, the data in the log will be cleared.
-	*/
-	'clear_log' => env ('TAIL_DB_CLEAR_LOG', true),
+    /*
+    |--------------------------------------------------------------------------
+    | Filename to store mysql queries log
+    |--------------------------------------------------------------------------
+    |
+    | Default filename is database.log
+    |
+    */
+    'filename' => env('TAIL_DB_FILENAME', 'database.log'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Path to store sql queries log.
+    |--------------------------------------------------------------------------
+    |
+    | Default path is inside storage/logs.
+    |
+    */
+    'path' => env('TAIL_DB_PATH', storage_path('logs')),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Show explain sql during the tail.
+    |--------------------------------------------------------------------------
+    |
+    | By default every sql query executed, laravel tail db will run explain
+    | command. Useful if you want to troubleshooting performance issue.
+    | If turn off, Laravel Tail DB only show the query executed, the time and
+    | the location where the query executed.
+    */
+    'show_explain' => env('TAIL_DB_SHOW_EXPLAIN', true),
 ];
 				</code></pre>
 
@@ -306,9 +309,9 @@ php artisan tail:db
 					<h3>How It Works</h3>
 					<br>
 					<p>When you installed Laravel Tail DB, the service provider will registered the event to captured SQL query executed from your application.</p>
-					<p>Any of the SQL query captured by Laravel Tail DB will be store in the dedicated log file.</p>
-					<p>By default, the data will be store in <code>storage/logs/database.log</code></p>
-					<p>When you run the command <code>php artisan tail:db</code>, it will read the log file and run the <code>explain</code> query. After that output the result in console.</p>
+					<p>Any of the SQL query captured by Laravel Tail DB will be sent to ReactPHP Server.</p>
+					<p>When you run the <code>tail:db</code> command, the ReactPHP Server also started and ready to receive any sql query data captured.</p>
+					<p>When received new SQL query data, it will output to console.</p>
 
 					<br>
 					<h3>Result</h3>
@@ -358,11 +361,12 @@ php artisan tail:db
 					<p style="margin-top: 1rem; margin-left: 1.8rem">You can update the <code>show_explain</code> config to <code>false</code></p>
 
 					<br>
+					<h3 class="pt-3"><i class="fas fa-question-circle mr-1"></i>What if I want to store the query in the log file?</h3>
+					<p style="margin-top: 1rem; margin-left: 1.8rem">You can update the <code>log_query</code> config to <code>true</code>. If you set to <code>true</code></p>
+
+					<br>
 					<h3 class="pt-3"><i class="fas fa-question-circle mr-1"></i>How to change the path and file name that will be used to store the data.</h3>
 					<p style="margin-top: 1rem; margin-left: 1.8rem">You can update the <code>path</code> config and <code>filename</code> config</p>
-
-					<h3 class="pt-3"><i class="fas fa-question-circle mr-1"></i>How to clear the log file?. For example I don't want the data in the log file consume my storage too big and also for the security purpose.</h3>
-					<p style="margin-top: 1rem; margin-left: 1.8rem">You can update the <code>clear_log</code> config to <code>true</code>. If you set to <code>true</code>, every time Laravel Tail DB received new SQL query, it will output first to the console and then clear the data in the log file.</p>
 			</article>
 
 		</div>
