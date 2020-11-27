@@ -86,8 +86,8 @@
 						<li>Explain result.</li>
 					</ul>
 					<br>
-					<p><b>Example output when running PostgreSQL:</b></p>
-					<img style="width: 80%" src="assets/images/postgresql.png">
+					<p><b>Example output when running MySQL:</b></p>
+					<img style="width: 80%" src="assets/images/demo.gif">
 				</section>
 			</article>
 
@@ -126,6 +126,7 @@
 					<ul>
 						<li>PHP: <code>^7.0</code></li>
 						<li>Laravel: <code>~5.5, ~5.6, ~5.7, ~5.8, ~6.0, ~7.0, ~8.0</code></li>
+						<li>Lumen</li>
 					</ul>
 				</section>
 			</article>
@@ -134,7 +135,7 @@
 				<section class="docs-section">
 					<h1 class="section-heading">Installation</h1>
 					<br>
-
+					<h3>Laravel</h3>
 					<p>Require this package in the composer.json of your Laravel project. This will download the package</p>
 
 					<pre>
@@ -142,11 +143,8 @@
 composer require muhdfaiz/laravel-tail-db
 						</code>
 					</pre>
-
-					<br>
 					<p>The <code>Muhdfaiz\LaravelTailDb\TailDatabaseServiceProvider</code> is auto-discovered and registered by default.</p>
 					<br>
-
 					<p>Next, you need to publish the Laravel Tail DB configuration file:</p>
 
 					<pre>
@@ -155,6 +153,54 @@ php artisan vendor:publish --provider="Muhdfaiz\LaravelTailDb\TailDatabaseServic
 						</code>
 					</pre>
 
+					<p>Now you can start using it. Go to <a href="#usage">Usage</a> section to start using it.</p>
+					<br><br>
+					<h3>Lumen</h3>
+					<p>Require this package in the composer.json of your Lumen project. This will download the package</p>
+
+					<pre>
+						<code class="language-bash hljs bash">
+composer require muhdfaiz/laravel-tail-db
+						</code>
+					</pre>
+
+					<div class="callout-block callout-block-info">
+						<div class="content">
+							<h4 class="callout-title">
+								<span class="callout-icon-holder mr-1">
+									<svg class="svg-inline--fa fa-info-circle fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"></path></svg><!-- <i class="fas fa-info-circle"></i> Font Awesome fontawesome.com -->
+								</span><!--//icon-holder-->
+								Additional Requirement
+							</h4>
+							<p>To be able to use this package in Lumen, you need to install <code>larasupport</code> package first. Follow the installation at this URL. <a href="https://irazasyed.github.io/larasupport/">https://irazasyed.github.io/larasupport/</a></p>
+						</div><!--//content-->
+					</div>
+
+					<br>
+
+					<p>Register service provider in <code>bootstrap/app.php</code>. Don't forget to register <code>Larasupport</code> service provider.</p>
+					<pre>
+						<code class="language-bash hljs bash">
+$app->register(Irazasyed\Larasupport\Providers\ArtisanServiceProvider::class);
+$app->register(Muhdfaiz\LaravelTailDb\TailDatabaseServiceProvider::class);
+						</code>
+					</pre>
+
+					<p>Next, you need to publish the Laravel Tail DB configuration file:</p>
+					<pre>
+						<code class="language-bash hljs bash">
+php artisan vendor:publish --provider="Muhdfaiz\LaravelTailDb\TailDatabaseServiceProvider" --tag="tail-db-config"
+						</code>
+					</pre>
+
+					<p>Register the config file in <code>bootstrap/app.php</code></p>
+					<pre>
+						<code class="language-bash hljs bash">
+$app->configure('laravel-tail-db');
+						</code>
+					</pre>
+
+					<p>Now you can start using it. Go to <a href="#usage">Usage</a> section to start using it.</p>
 					<br>
 					<p>This is the default content of the config file that will be published as config/tail-db.php:</p>
 
