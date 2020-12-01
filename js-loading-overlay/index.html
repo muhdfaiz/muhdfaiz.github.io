@@ -23,6 +23,14 @@
 	<link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
 
 	<style>
+		.form-control {
+			padding: 0.5rem !important;
+			height: 2.5rem;
+			border-color: #31a54e;
+		}
+		.btn {
+			padding: 0.5rem 1rem !important;
+		}
 		#overlay {
 			z-index: 9998 !important;
 		}
@@ -31,6 +39,9 @@
 		}
 		.input-group-prepend, .input-group-append {
 			background: #d2d2d2;
+		}
+		.input-group-prepend:hover strong, .input-group-append:hover strong {
+			color: #fff;
 		}
 	</style>
 </head>
@@ -285,7 +296,7 @@ triangle-skew-spin<br>
 					<br>
 
 					<pre>
-						<code id="code-output" class="language-javascript hljs javascript" style="min-height: 50px;">
+						<code class="language-javascript hljs javascript" style="min-height: 50px;">
 {
 	'overlayBackgroundColor': '#666666',
 	'overlayOpacity': 0.6,
@@ -386,20 +397,20 @@ triangle-skew-spin<br>
 									<div class="d-flex align-items-center">
 										<div class="mr-4">Overlay Background Color: </div>
 										<div>
-											<input type="text" id="overlayBackgroundColor">
+											<input class="form-control" type="text" id="overlayBackgroundColor">
 										</div>
 									</div>
 
 									<div class="d-flex align-items-center mt-3">
 										<div class="mr-4">Overlay Opacity: </div>
 										<div>
-											<input class="form-group" type="number" style="width: 50px;" value="0.6" data-decimals="1" min="0" max="1" step="0.1" id="overlayOpacity">
+											<input class="form-control" type="number" style="width: 50px;" value="0.6" data-decimals="1" min="0" max="1" step="0.1" id="overlayOpacity">
 										</div>
 									</div>
 
 									<div class="d-flex align-items-center mt-3">
 										<div class="mr-4">Spinner Icon: </div>
-										<select id="spinnerIcon">
+										<select class="form-control" id="spinnerIcon">
 											<option value="">--- Please Select ---</option>
 											<option value="ball-8bits">ball-8bits</option>
 											<option value="ball-atom">ball-atom</option>
@@ -460,14 +471,14 @@ triangle-skew-spin<br>
 									<div class="d-flex align-items-center mt-3">
 										<div class="mr-4">Spinner Color: </div>
 										<div>
-											<input type="text" id="spinnerColor">
+											<input class="form-control" type="text" id="spinnerColor">
 										</div>
 									</div>
 
 									<div class="d-flex align-items-center mt-3">
 										<div class="mr-4">Spinner Size: </div>
 										<div>
-											<select id="spinnerSize">
+											<select class="form-control" id="spinnerSize">
 												<option value="">--- Please Select ---</option>
 												<option value="1x">1x</option>
 												<option value="2x">2x</option>
@@ -479,42 +490,42 @@ triangle-skew-spin<br>
 									<div class="d-flex align-items-center mt-3">
 										<div class="mr-4">Overlay ID Name: </div>
 										<div>
-											<input type="text" id="overlayIDName">
+											<input class="form-control" type="text" id="overlayIDName">
 										</div>
 									</div>
 
 									<div class="d-flex align-items-center mt-3">
 										<div class="mr-4">Spinner ID Name: </div>
 										<div>
-											<input type="text" id="spinnerIDName">
+											<input class="form-control" type="text" id="spinnerIDName">
 										</div>
 									</div>
 
 									<div class="d-flex align-items-center mt-3">
 										<div class="mr-4">Spinner Icon Offset X: </div>
 										<div>
-											<input type="text" id="offsetX" placeholder="Example: 10px or 10%">
+											<input class="form-control" type="text" id="offsetX" placeholder="Example: 10px or 10%">
 										</div>
 									</div>
 
 									<div class="d-flex align-items-center mt-3">
 										<div class="mr-4">Spinner Icon Offset Y: </div>
 										<div>
-											<input type="text" id="offsetY" placeholder="Example: 10px or 10%">
+											<input class="form-control" type="text" id="offsetY" placeholder="Example: 10px or 10%">
 										</div>
 									</div>
 
 									<div class="d-flex align-items-center mt-3">
 										<div class="mr-4">Display Overlay In Container: </div>
 										<div>
-											<input type="checkbox" id="displayInContainer">
+											<input class="form-control" type="checkbox" id="displayInContainer">
 										</div>
 									</div>
 
 									<div class="d-flex align-items-center mt-3">
 										<div class="mr-4">Lock Scroll When Loading Overlay Show: </div>
 										<div>
-											<input type="checkbox" id="lockScroll">
+											<input class="form-control" type="checkbox" id="lockScroll">
 										</div>
 									</div>
 								</form>
