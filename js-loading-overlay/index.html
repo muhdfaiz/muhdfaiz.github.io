@@ -17,10 +17,22 @@
 
 	<!-- Plugins CSS -->
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.2.0/css/bootstrap-colorpicker.min.css">
 
 	<!-- Theme CSS -->
 	<link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
 
+	<style>
+		#overlay {
+			z-index: 9998 !important;
+		}
+		.input-group input[type="text"] {
+			width: 50px;
+		}
+		.input-group-prepend, .input-group-append {
+			background: #d2d2d2;
+		}
+	</style>
 </head>
 
 <body class="docs-page">
@@ -57,7 +69,11 @@
 				<li class="nav-item"><a class="nav-link scrollto" href="#changelog">Changelog</a></li>
 
 				<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#usage"><span class="theme-icon-holder mr-2"><i class="fas fa-cogs"></i></span>Usage</a></li>
-				<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#faq"><span class="theme-icon-holder mr-2"><i class="fas fa-lightbulb"></i></span>FAQ</a></li>
+				<li class="nav-item"><a class="nav-link scrollto" href="#default-options">Default Options</a></li>
+				<li class="nav-item"><a class="nav-link scrollto" href="#options">Custom Options</a></li>
+
+				<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#playground"><span class="theme-icon-holder mr-2"><i class="fas fa-tools"></i></span>Playground</a></li>
+				<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#credits"><span class="theme-icon-holder mr-2"><i class="fas fa-lightbulb"></i></span>Credits</a></li>
 			</ul>
 
 		</nav><!--//docs-nav-->
@@ -73,7 +89,7 @@
 
 					<p>You can use this library to display loading overlay for AJAX request and other things.</p>
 
-					<p>This library is very lightweight. Only <code>7KB</code> after compressed.</p>
+					<p>This library is very lightweight. The size only <code>7KB</code> after compressed.</p>
 				</section>
 			</article>
 
@@ -99,7 +115,7 @@ yarn add js-loading-overlay
 					<ul>
 						<li>Copy the <code>js-loading-overlay.min.js</code> script or <code>js-loading-overlay.js</code> script inside <code>dist</code> folder into your application.</li>
 						<li>You can get the file from <a target="_blank" href="https://github.com/muhdfaiz/js-loading-overlay/tree/master/dist">here.</a> </li>
-						<li>The script end with `min.js` is the script after compressed. Recommended to use it in production.</li>
+						<li>The script end with <code>min.js</code> is the script after compressed. Recommended to use it in production.</li>
 					</ul>
 
 					<p>Now you can start using it. Go to <a href="#usage">Usage</a> section to start using it.</p>
@@ -135,9 +151,14 @@ yarn add js-loading-overlay
 
 					<pre>
 						<code class="language-javascript hljs javascript">
+// Import the script.
 import 'js-loading-overlay'
 
-JsLoadingOverlay.show({'spinnerIcon': 'triangle-skew-spin'});
+// Show the loading overlay with default config.
+JsLoadingOverlay.show();
+
+// Hide the loading overlay.
+JsLoadingOverlay.hide();
 						</code>
 					</pre>
 
@@ -157,12 +178,46 @@ JsLoadingOverlay.show({'spinnerIcon': 'triangle-skew-spin'});
 					</div>
 					<pre>
 						<code class="language-html hljs html">
+// Import the script.
 &lt;script src="js-loading-overlay.min.js"&gt;&lt;/script&gt;
 
-JsLoadingOverlay.show({'spinnerIcon': 'triangle-skew-spin'});
+// Show the loading overlay with default config.
+JsLoadingOverlay.show();
+
+// Hide the loading overlay.
+JsLoadingOverlay.hide();
 						</code>
 					</pre>
 
+					<br>
+					<h3>Show Loading Overlay</h3>
+					<pre>
+						<code class="language-javascript hljs javascript" style="min-height: 50px;">
+var configs = {
+	'overlayBackgroundColor': '#666666',
+	'overlayOpacity': 0.6,
+	'spinnerIcon': 'ball-circus',
+	'spinnerColor': '#000',
+	'spinnerSize': '3x',
+	'overlayIDName': 'overlay',
+	'spinnerIDName': 'spinner',
+	'offsetY': 0,
+	'offsetX': 0,
+	'lockScroll': false,
+	'containerID': null,
+};
+
+JsLoadingOverlay.show(configs);
+						</code>
+					</pre>
+
+					<br>
+					<h3>Hide Loading Overlay</h3>
+					<pre>
+						<code class="language-javascript hljs javascript" style="min-height: 50px;">
+JsLoadingOverlay.hide();
+						</code>
+					</pre>
 					<br>
 					<h3>List Of Available Spinner</h3>
 					<code class="language-text hljs text">
@@ -220,70 +275,278 @@ square-spin<br>
 timer<br>
 triangle-skew-spin<br>
 					</code>
-
-					<br><br>
-					<h3>Options</h3>
-					<p>When you installed Laravel Tail DB, the service provider will registered the event to captured SQL query executed from your application.</p>
-					<p>Any of the SQL query captured by Laravel Tail DB will be sent to ReactPHP Server.</p>
-					<p>When you run the <code>tail:db</code> command, the ReactPHP Server also started and ready to receive any sql query data captured.</p>
-					<p>When received new SQL query data, it will output to console.</p>
-
-					<br>
-					<h3>Result</h3>
-					<br>
-
-					<p>For the output of the duration to complete the query, got 2 colors</p>
-					<ul>
-						<li>Blue - Indicate the query not slow</li>
-						<li>Red - Indicate the query slow</li>
-					</ul>
-
-					<p>You can update the <code>slow_duration</code> config to <code>false</code> which you think suitable with your preferences. </p>
-					<p>You also can disable the explain query if you want to show it. You can update the <code>show_explain</code> config to <code>false</code></p>
-
-					<br><br>
-					<h3>Sample MySQL Output</h3>
-					<br>
-					<img src="assets/images/mysql.png" style="width: 100%">
-
-					<br><br><br>
-					<h3>Sample PostgreSQL Output</h3>
-					<br>
-					<img src="assets/images/postgresql.png" style="width: 100%">
-
-					<br><br><br>
-					<h3>Sample SQLite Output</h3>
-					<br>
-					<img src="assets/images/sqlite.png" style="width: 100%">
 				</section>
 			</article>
 
-			<article class="docs-article" id="faq">
+			<article class="docs-article" id="default-options">
 				<section class="docs-section">
-					<h1 class="section-heading">FAQ</h1>
-					<h3 class="pt-3"><i class="fas fa-question-circle mr-1"></i>How to disable the Laravel Tail DB?</h3>
-					<p style="margin-top: 1rem; margin-left: 1.8rem">You can update the <code>enabled</code> config to false</p>
-					<br>
-					<h3 class="pt-3"><i class="fas fa-question-circle mr-1"></i>How to set custom duration of SQL query that considered slow? For example, I want query more than 1 seconds consider as slow query.</h3>
-					<p style="margin-top: 1rem; margin-left: 1.8rem">You can update the <code>slow_duration</code> config. The value must be in milliseconds</p>
-					<br>
-					<h3 class="pt-3"><i class="fas fa-question-circle mr-1"></i>How to ignore some query? For example, I don't want to Laravel Tail DB listen the <code>telescope</code> query.</h3>
-					<p style="margin-top: 1rem; margin-left: 1.8rem">You can update the <code>ignore_query_keyword</code> config. Laravel Tail DB will check if the query contain any of these keywords. If <code>true</code>, Laravel Tail DB will ignore it.
-					If you want to specify multiple keyword, please separated the keyword by <code>|</code></p>
+					<h3>Default Options</h3>
 
 					<br>
-					<h3 class="pt-3"><i class="fas fa-question-circle mr-1"></i>What if I only want to see the raw SQL query executed and want to hide the <code>explain</code> result</h3>
-					<p style="margin-top: 1rem; margin-left: 1.8rem">You can update the <code>show_explain</code> config to <code>false</code></p>
 
-					<br>
-					<h3 class="pt-3"><i class="fas fa-question-circle mr-1"></i>What if I want to store the query in the log file?</h3>
-					<p style="margin-top: 1rem; margin-left: 1.8rem">You can update the <code>log_query</code> config to <code>true</code>. If you set to <code>true</code></p>
-
-					<br>
-					<h3 class="pt-3"><i class="fas fa-question-circle mr-1"></i>How to change the path and file name that will be used to store the data.</h3>
-					<p style="margin-top: 1rem; margin-left: 1.8rem">You can update the <code>path</code> config and <code>filename</code> config</p>
+					<pre>
+						<code id="code-output" class="language-javascript hljs javascript" style="min-height: 50px;">
+{
+	'overlayBackgroundColor': '#666666',
+	'overlayOpacity': 0.6,
+	'spinnerIcon': 'ball-circus',
+	'spinnerColor': '#000',
+	'spinnerSize': '3x',
+	'overlayIDName': 'overlay',
+	'spinnerIDName': 'spinner',
+}
+						</code>
+					</pre>
+				</section>
 			</article>
 
+			<article class="docs-article" id="options">
+				<section class="docs-section">
+					<h3>Custom Options</h3>
+					<p class="mt-4 mb-4">You can use any of the options below to customize the loading overlay according ti your need.</p>
+
+					<table class="table table-responsive table-bordered">
+						<thead>
+							<tr>
+								<td><b>Option</b></td>
+								<td><b>Description</b></td>
+								<td><b>Value</b></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>overlayBackgroundColor</td>
+								<td>Specify the background color of the loading overlay.</td>
+								<td>HTML color code. Default: <code>#666666</code>. Example: <code>#ECECEC, grey</code></td>
+							</tr>
+							<tr>
+								<td>overlayOpacity</td>
+								<td>The opacity of the loading overlay.</td>
+								<td>Available value from 0 to 1. Default: <code>0.6</code>. Example: <code>0.5, 0.7</code></td>
+							</tr>
+							<tr>
+								<td>spinnerIcon</td>
+								<td>You need to choose the spinner icon you want to use. Got 52 spinners you can choose. Go to <a href="#playground">playground</a> to see available spinner.</td>
+								<td>Default: <code>ball-circus</code></td>
+							</tr>
+							<tr>
+								<td>spinnerColor</td>
+								<td>Specify the color of the loading overlay spinner.</td>
+								<td>HTML color code. Default: <code>#000</code>. Example: <code>#ECECEC, grey</code></td>
+							</tr>
+							<tr>
+								<td>spinnerSize</td>
+								<td>Specify the size of the loading overlay spinner.</td>
+								<td>String. Default: <code>1x</code>. Available values: <code>1x, 2x, 3x</code></td>
+							</tr>
+							<tr>
+								<td>overlayIDName</td>
+								<td>Use this option to specify the overlay ID name. Useful if the default ID name conflict with your code.</td>
+								<td>String. Default: <code>overlay</code>. Example: <code>overlay-container</code></td>
+							</tr>
+							<tr>
+								<td>spinnerIDName</td>
+								<td>Use this option to specify the spinner ID name. Useful if the default ID name conflict with your code.</td>
+								<td>String. Default: <code>spinner</code>. Example: <code>spinner-container</code></td>
+							</tr>
+							<tr>
+								<td>offsetX</td>
+								<td>Use this option to adjust the spinner position for X axis. You can specify the value in <code>PX</code>, <code>EM</code>, <code>REM</code> or <code>%</code></td>
+								<td>String. Default: <code>0</code>. Example: <code>15PX, 1REM, 1EM, -10%</code></td>
+							</tr>
+							<tr>
+								<td>offsetY</td>
+								<td>Use this option to adjust the spinner position for Y axis. You can specify the value in <code>PX</code>, <code>EM</code>, <code>REM</code> or <code>%</code></td>
+								<td>String. Default: <code>0</code>. Example: <code>15PX, 1REM, 1EM, -10%</code></td>
+							</tr>
+							<tr>
+								<td>containerID</td>
+								<td>Use this option to display the loading inside the container. <br><br>For example you have a table and when user click next page button, you want to show the loading overlay while waiting for the data.
+								<br><br>Just specify the ID name without <code>#</code>.</td>
+								<td>String. Default: <code>null</code>. Example: <code>users-table</code></td>
+							</tr>
+							<tr>
+								<td>lockScroll</td>
+								<td>Use this option if you want to lock the scroll when loading overlay has been shown. <br><br>Useful if you a form and when user submit the form, you display the loading overlay and prevent user from scroll to other section.</td>
+								<td>Boolean. Default: <code>false</code>. Example: <code>true</code></td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+			</article>
+
+			<article class="docs-article" id="playground">
+				<section class="docs-section">
+					<h3>Playground</h3>
+					<br>
+					<div class="row">
+						<div class="mb-4 mb-md-0 col-md-6">
+							<div id="sample-playground">
+								<form>
+									<div class="d-flex align-items-center">
+										<div class="mr-4">Overlay Background Color: </div>
+										<div>
+											<input type="text" id="overlayBackgroundColor">
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center mt-3">
+										<div class="mr-4">Overlay Opacity: </div>
+										<div>
+											<input class="form-group" type="number" style="width: 50px;" value="0.6" data-decimals="1" min="0" max="1" step="0.1" id="overlayOpacity">
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center mt-3">
+										<div class="mr-4">Spinner Icon: </div>
+										<select id="spinnerIcon">
+											<option value="">--- Please Select ---</option>
+											<option value="ball-8bits">ball-8bits</option>
+											<option value="ball-atom">ball-atom</option>
+											<option value="ball-beat">ball-beat</option>
+											<option value="ball-circus">ball-circus</option>
+											<option value="ball-climbing-dot">ball-climbing-dot</option>
+											<option value="ball-clip-rotate">ball-clip-rotate</option>
+											<option value="ball-clip-rotate-multiple">ball-clip-rotate-multiple</option>
+											<option value="ball-clip-rotate-pulse">ball-clip-rotate-pulse</option>
+											<option value="ball-elastic-dots">ball-elastic-dots</option>
+											<option value="ball-fall">ball-fall</option>
+											<option value="ball-fussion">ball-fussion</option>
+											<option value="ball-grid-beat">ball-grid-beat</option>
+											<option value="ball-grid-pulse">ball-grid-pulse</option>
+											<option value="ball-newton-cradle">ball-newton-cradle</option>
+											<option value="ball-pulse">ball-pulse</option>
+											<option value="ball-pulse-rise">ball-pulse-rise</option>
+											<option value="ball-pulse-sync">ball-pulse-sync</option>
+											<option value="ball-rotate">ball-rotate</option>
+											<option value="ball-running-dots">ball-running-dots</option>
+											<option value="ball-scale">ball-scale</option>
+											<option value="ball-scale-multiple">ball-scale-multiple</option>
+											<option value="ball-scale-pulse">ball-scale-pulse</option>
+											<option value="ball-scale-ripple">ball-scale-ripple</option>
+											<option value="ball-scale-ripple-multiple">ball-scale-ripple-multiple</option>
+											<option value="ball-spin">ball-spin</option>
+											<option value="ball-spin-clockwise">ball-spin-clockwise</option>
+											<option value="ball-spin-clockwise-fade">ball-spin-clockwise-fade</option>
+											<option value="ball-spin-clockwise-fade-rotating">ball-spin-clockwise-fade-rotating</option>
+											<option value="ball-spin-fade">ball-spin-fade</option>
+											<option value="ball-spin-fade-rotating">ball-spin-fade-rotating</option>
+											<option value="ball-spin-rotate">ball-spin-rotate</option>
+											<option value="ball-square-clockwise-spin">ball-square-clockwise-spin</option>
+											<option value="ball-square-spin">all-square-spin</option>
+											<option value="ball-triangle-path">ball-triangle-path</option>
+											<option value="ball-zig-zag">ball-zig-zag</option>
+											<option value="ball-zig-zag-deflect">ball-zig-zag-deflect</option>
+											<option value="cog">cog</option>
+											<option value="cube-transition">cube-transition</option>
+											<option value="fire">fire</option>
+											<option value="line-scale">line-scale</option>
+											<option value="line-scale-party">line-scale-party</option>
+											<option value="line-scale-pulse-out">line-scale-pulse-out</option>
+											<option value="line-scale-pulse-out-rapid">line-scale-pulse-out-rapid</option>
+											<option value="line-spin-clockwise-fade">line-spin-clockwise-fade</option>
+											<option value="line-spin-clockwise-fade-rotating">line-spin-clockwise-fade-rotating</option>
+											<option value="line-spin-fade">line-spin-fade</option>
+											<option value="line-spin-fade-rotating">line-spin-fade-rotating</option>
+											<option value="pacman">pacman</option>
+											<option value="square-jelly-box">square-jelly-box</option>
+											<option value="square-loader">square-loader</option>
+											<option value="square-spin">square-spin</option>
+											<option value="timer">timer</option>
+											<option value="triangle-skew-spin">triangle-skew-spin</option>
+										</select>
+									</div>
+
+									<div class="d-flex align-items-center mt-3">
+										<div class="mr-4">Spinner Color: </div>
+										<div>
+											<input type="text" id="spinnerColor">
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center mt-3">
+										<div class="mr-4">Spinner Size: </div>
+										<div>
+											<select id="spinnerSize">
+												<option value="">--- Please Select ---</option>
+												<option value="1x">1x</option>
+												<option value="2x">2x</option>
+												<option value="3x">3x</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center mt-3">
+										<div class="mr-4">Overlay ID Name: </div>
+										<div>
+											<input type="text" id="overlayIDName">
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center mt-3">
+										<div class="mr-4">Spinner ID Name: </div>
+										<div>
+											<input type="text" id="spinnerIDName">
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center mt-3">
+										<div class="mr-4">Spinner Icon Offset X: </div>
+										<div>
+											<input type="text" id="offsetX" placeholder="Example: 10px or 10%">
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center mt-3">
+										<div class="mr-4">Spinner Icon Offset Y: </div>
+										<div>
+											<input type="text" id="offsetY" placeholder="Example: 10px or 10%">
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center mt-3">
+										<div class="mr-4">Display Overlay In Container: </div>
+										<div>
+											<input type="checkbox" id="displayInContainer">
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center mt-3">
+										<div class="mr-4">Lock Scroll When Loading Overlay Show: </div>
+										<div>
+											<input type="checkbox" id="lockScroll">
+										</div>
+									</div>
+								</form>
+							</div>
+
+							<br>
+							<div class="d-flex align-items-center">
+								<div id="showLoadingOverlay" class="btn btn-primary">Show Loading Overlay</div>
+								<div id="reset" class="ml-4 btn btn-danger">Reset Options</div>
+							</div>
+							<br>
+						</div>
+
+						<div class="col-md-6">
+							<h4>Code Output</h4>
+
+					<pre>
+						<code id="code-output" class="language-javascript hljs javascript" style="min-height: 50px;">
+JSLoadingOverlay.show();
+						</code>
+					</pre>
+						</div>
+					</div>
+				</section>
+			</article>
+
+			<article class="docs-article" id="credits">
+				<section class="docs-section">
+					<h3>Credits</h3>
+					<p class="mt-3">Credit to <a target="_blank" href="https://labs.danielcardoso.net/load-awesome/">Load Awesome</a> for the beautiful spinner.</p>
+				</section>
+			</article>
 		</div>
 	</div>
 </div><!--//docs-wrapper-->
@@ -300,10 +563,137 @@ triangle-skew-spin<br>
 <script src="assets/plugins/jquery.scrollTo.min.js"></script>
 <script src="assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>
 <script src="assets/js/docs.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.2.0/js/bootstrap-colorpicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@1.16.8/src/bootstrap-input-spinner.min.js"></script>
+<script src="assets/js/js-loading-overlay.min.js"></script>
 <script>
 	$( document ).ready(function() {
+		var configs = {
+			'overlayBackgroundColor': '#666666',
+			'overlayOpacity': 0.6,
+			'spinnerIcon': 'ball-circus',
+			'spinnerColor': '#000',
+			'spinnerSize': '3x',
+			'overlayIDName': 'overlay',
+			'spinnerIDName': 'spinner',
+			'offsetX': 0,
+			'offsetY': 0,
+			'containerID': null,
+			'lockScroll': false,
+		};
+
+		$('#overlayBackgroundColor').colorpicker();
+
+		// Example using an event, to change the color of the #demo div background:
+		$('#spinnerColor').on('colorpickerChange', function(event) {
+			configs.spinnerColor = event.color.toString();
+		});
+
+		$('#spinnerColor').colorpicker();
+
+		// Example using an event, to change the color of the #demo div background:
+		$('#overlayBackgroundColor').on('colorpickerChange', function(event) {
+			if (document.body.contains(document.getElementById('#overlay'))) {
+				return;
+			}
+
+			configs.overlayBackgroundColor = event.color.toString();
+		});
+
+		$("#overlayOpacity").inputSpinner();
+
+		$("#overlayOpacity").on("change input paste keyup", function() {
+			configs.overlayOpacity = $(this).val();
+		});
+
+		$('#spinnerIcon').on('change', function() {
+			configs.spinnerIcon = this.value;
+		});
+
+		$('#spinnerSize').on('change', function() {
+			configs.spinnerSize = this.value;
+		});
+
+		$("#overlayIDName").on("change input paste keyup", function() {
+			configs.overlayIDName = $(this).val();
+		});
+
+		$("#spinnerIDName").on("change input paste keyup", function() {
+			configs.spinnerIDName = $(this).val();
+		});
+
+		$("#offsetX").on("change input paste keyup", function() {
+			configs.offsetX = $(this).val() || 0;
+		});
+
+		$("#offsetY").on("change input paste keyup", function() {
+			configs.offsetY = $(this).val()|| 0;
+		});
+
+
+		$("#displayInContainer").change(function() {
+			if(this.checked) {
+				configs.containerID = 'sample-playground';
+			} else {
+				configs.containerID = null;
+			}
+		});
+
+		$("#lockScroll").change(function() {
+			if(this.checked) {
+				configs.lockScroll = true;
+			} else {
+				configs.lockScroll = false;
+			}
+		});
+
+		$("#showLoadingOverlay").click(function (event) {
+			event.preventDefault();
+			JsLoadingOverlay.hide();
+			$("#code-output").html("JsLoadingOverlay.show(" + JSON.stringify(configs, null, 2) + ");");
+			hljs.highlightBlock($("#code-output").get(0));
+			JsLoadingOverlay.show(configs);
+
+		});
+
+		$("#reset").click(function (event) {
+			event.preventDefault();
+
+			configs = {
+				'overlayBackgroundColor': '#666666',
+				'overlayOpacity': 0.6,
+				'spinnerIcon': 'ball-circus',
+				'spinnerColor': '#000',
+				'spinnerSize': '3x',
+				'overlayIDName': 'overlay',
+				'spinnerIDName': 'spinner',
+				'offsetX': 0,
+				'offsetY': 0,
+				'containerID': null,
+				'lockScroll': false,
+			};
+
+			$('form')[0].reset();
+			$('#overlayOpacity').val(0.6);
+			$("#code-output").html("JsLoadingOverlay.show();");
+			hljs.highlightBlock($("#code-output").get(0));
+		});
+
 		$(document.body).find("pre code").each(function() {
 			$(this).html($.trim($(this).html()));
+		});
+
+		document.addEventListener('click',function(e){
+			if (e.target.contains(document.getElementById(configs.overlayIDName))) {
+				JsLoadingOverlay.hide();
+			}
+
+			if(e.target && e.target.id == 'overlay'){
+				JsLoadingOverlay.hide();
+			}
+			if(e.target && e.target.id == 'spinner'){
+				JsLoadingOverlay.hide();
+			}
 		});
 	});
 </script>
