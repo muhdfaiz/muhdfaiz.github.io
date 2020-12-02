@@ -100,7 +100,7 @@
 
 					<p>You can use this library to display loading overlay for AJAX request and other things.</p>
 
-					<p>This library is very lightweight. The size only <code>7KB</code> after compressed.</p>
+					<p>This library is very lightweight. The size only <code>7KB</code> after compressed. No jQuery.</p>
 				</section>
 			</article>
 
@@ -126,6 +126,7 @@ yarn add js-loading-overlay
 					<ul>
 						<li>Copy the <code>js-loading-overlay.min.js</code> script or <code>js-loading-overlay.js</code> script inside <code>dist</code> folder into your application.</li>
 						<li>You can get the file from <a target="_blank" href="https://github.com/muhdfaiz/js-loading-overlay/tree/master/dist">here.</a> </li>
+						<li>Or you can use the script directly from CDN <a target="_blank" href="https://www.jsdelivr.com/package/npm/js-loading-overlay">here.</a></li>
 						<li>The script end with <code>min.js</code> is the script after compressed. Recommended to use it in production.</li>
 					</ul>
 
@@ -189,8 +190,11 @@ JsLoadingOverlay.hide();
 					</div>
 					<pre>
 						<code class="language-html hljs html">
-// Import the script.
+// Import the script from your local.
 &lt;script src="js-loading-overlay.min.js"&gt;&lt;/script&gt;
+// OR
+// Import the script from the CDN.
+&lt;script src="https://cdn.jsdelivr.net/npm/js-loading-overlay@1.1.0/dist/js-loading-overlay.min.js"&gt;&lt;/script&gt;
 
 // Show the loading overlay with default config.
 JsLoadingOverlay.show();
